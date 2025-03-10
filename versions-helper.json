@@ -10,21 +10,24 @@
         "pecl": {
           "APCu": "5.1.24",
           "memcached": "3.3.0",
-          "redis": "6.1.0"
+          "redis": "6.1.0",
+          "xdebug": "3.4.1"
         }
       },
       "8.2": {
         "pecl": {
           "APCu": "5.1.23",
           "memcached": "3.3.0",
-          "redis": "6.0.2"
+          "redis": "6.0.2",
+          "xdebug": "3.4.1"
         }
       },
       "8.1": {
         "pecl": {
           "APCu": "5.1.23",
           "memcached": "3.3.0",
-          "redis": "6.0.2"
+          "redis": "6.0.2",
+          "xdebug": "3.4.1"
         }
       }
     },
@@ -45,21 +48,24 @@
         "pecl": {
           "APCu": "5.1.24",
           "memcached": "3.3.0",
-          "redis": "6.1.0"
+          "redis": "6.1.0",
+          "xdebug": "3.4.1"
         }
       },
       "8.2": {
         "pecl": {
           "APCu": "5.1.23",
           "memcached": "3.3.0",
-          "redis": "6.0.2"
+          "redis": "6.0.2",
+          "xdebug": "3.4.1"
         }
       },
       "8.1": {
         "pecl": {
           "APCu": "5.1.23",
           "memcached": "3.3.0",
-          "redis": "6.0.2"
+          "redis": "6.0.2",
+          "xdebug": "3.4.1"
         }
       }
     },
@@ -79,14 +85,16 @@
         "pecl": {
           "APCu": "5.1.23",
           "memcached": "3.3.0",
-          "redis": "6.0.2"
+          "redis": "6.0.2",
+          "xdebug": "3.4.1"
         }
       },
       "8.1": {
         "pecl": {
           "APCu": "5.1.23",
           "memcached": "3.3.0",
-          "redis": "6.0.2"
+          "redis": "6.0.2",
+          "xdebug": "3.4.1"
         }
       }
     },

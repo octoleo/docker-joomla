@@ -59,6 +59,8 @@ RUN set -ex; \
 		pdo_pgsql \
 		pgsql \
 		zip \
+        git \
+        unzip \
 	; \
 # https://pecl.php.net/package/imagick
 # https://github.com/Imagick/imagick/commit/5ae2ecf20a1157073bad0170106ad0cf74e01cb6 (causes a lot of build failures, but strangely only intermittent ones)
@@ -88,11 +90,13 @@ RUN set -ex; \
 	pecl install APCu-5.1.23; \
 	pecl install memcached-3.3.0; \
 	pecl install redis-6.0.2; \
+	pecl install xdebug-3.4.1; \
 	\
 	docker-php-ext-enable \
 		apcu \
 		memcached \
 		redis \
+		xdebug \
 	; \
 	rm -r /tmp/pear; \
 	\
@@ -128,7 +132,7 @@ RUN set -eux; \
 # set recommended error logging
 RUN { \
 # https://www.php.net/manual/en/errorfunc.constants.php
-		echo 'error_reporting = E_ERROR | E_WARNING | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING | E_RECOVERABLE_ERROR'; \
+		echo 'error_reporting = E_ALL & ~E_DEPRECATED'; \
 		echo 'display_errors = Off'; \
 		echo 'display_startup_errors = Off'; \
 		echo 'log_errors = On'; \
@@ -138,6 +142,25 @@ RUN { \
 		echo 'ignore_repeated_source = Off'; \
 		echo 'html_errors = Off'; \
 	} > /usr/local/etc/php/conf.d/error-logging.ini
+# Configure Xdebug with optimal defaults for debugging
+RUN { \
+        echo 'zend_extension=xdebug'; \
+        echo 'xdebug.mode=debug'; \
+        echo 'xdebug.start_with_request=yes'; \
+        echo 'xdebug.client_host=host.docker.internal'; \
+        echo 'xdebug.client_port=9003'; \
+        echo 'xdebug.log=/dev/stdout'; \
+    } > /usr/local/etc/php/conf.d/xdebug-recommended.ini
+
+
+# Composer
+RUN curl -sS https://getcomposer.org/installer | php -- \
+	--install-dir=/usr/local/bin --filename=composer;
+
+# PHPUnit
+RUN curl -Lo phpunit https://phar.phpunit.de/phpunit.phar \
+	&& chmod +x phpunit \
+	&& mv phpunit /usr/local/bin/phpunit;
 
 VOLUME /var/www/html
 
@@ -161,5 +184,3 @@ COPY makedb.php /makedb.php
 ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["php-fpm"]
-
-

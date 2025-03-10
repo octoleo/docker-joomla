@@ -79,6 +79,9 @@ for version; do
     # get the mcrypt values
     pecl_mcrypt="$(echo "${peclValues}" | jq -r '.mcrypt')"
     export pecl_mcrypt
+    # get the xdebug values
+    pecl_xdebug="$(echo "${peclValues}" | jq -r '.xdebug')"
+    export pecl_xdebug
 
     for variant in "${variants[@]}"; do
       export variant
@@ -101,4 +104,3 @@ for version; do
     done
   done
 done
-
